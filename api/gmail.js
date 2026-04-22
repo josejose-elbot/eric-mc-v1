@@ -62,7 +62,7 @@ export default async function handler(req, res) {
     const listRes = await fetch(`${GITHUB_RAW}/gmail-list.json`);
     const listData = await listRes.json();
     
-    const emails = (listData || []).slice(0, 10).map((m, i) => {
+    const emails = (listData || []).map((m, i) => {
       const snippet = m.snippet || '';
       const parsed = parseEmailFromSnippet(snippet);
       
@@ -73,8 +73,15 @@ export default async function handler(req, res) {
         subject: parsed.subject,
         time: 'recién',
         unread: i < 5,
-        label: parsed.label
+        label: parsed.label,
+        originalIndex: i
       };
+    }).sort((a, b) => {
+      // Unread first
+      if (a.unread && !b.unread) return -1;
+      if (!a.unread && b.unread) return 1;
+      // Then by original order (most recent first)
+      return a.originalIndex - b.originalIndex;
     });
     
     res.status(200).json({
