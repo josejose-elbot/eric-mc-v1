@@ -1,0 +1,806 @@
+{
+  "total": 100,
+  "returned": 100,
+  "issues": [
+    {
+      "key": "CIAY-10",
+      "summary": "Plataforma del PED con Ai",
+      "status": "Pausada",
+      "priority": "Medium",
+      "type": "Story",
+      "updated": "2026-04-22"
+    },
+    {
+      "key": "ODP-8",
+      "summary": "Implement multi-factor authentication (TOTP)",
+      "status": "In Progress",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-7",
+      "summary": "Add OAuth2 social login (Google, Microsoft)",
+      "status": "BLOCKED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-23",
+      "summary": "[BUG] Duplicate transactions from Plaid webhook race condition",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-22",
+      "summary": "[BUG] Dashboard charts blank flash on initial load — missing skeleton loaders",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-21",
+      "summary": "[BUG] Refresh token rotation not invalidating previous tokens",
+      "status": "To Do",
+      "priority": "Highest",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-20",
+      "summary": "Auto-generate executive financial summary reports via LLM",
+      "status": "To Do",
+      "priority": "Low",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-19",
+      "summary": "Build predictive cash flow forecasting with scenario planning",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-18",
+      "summary": "Implement transaction anomaly detection with real-time alerts",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-17",
+      "summary": "Build natural language query interface for financial data (text-to-SQL)",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-16",
+      "summary": "Design webhook processing pipeline with retry and dead letter queue",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-15",
+      "summary": "Build QuickBooks Online bi-directional accounting sync",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-14",
+      "summary": "Integrate Stripe for payment and subscription data ingestion",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-13",
+      "summary": "Integrate Plaid API for bank account linking and transaction sync",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-12",
+      "summary": "Build automated PDF report generation and email delivery",
+      "status": "To Do",
+      "priority": "Low",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-11",
+      "summary": "Implement global dashboard filters (date range, accounts, categories)",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-10",
+      "summary": "Create customizable dashboard widget system (drag-and-drop)",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-9",
+      "summary": "Build real-time revenue tracking chart component",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-6",
+      "summary": "Set up role-based access control (Admin, Manager, Viewer)",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Task",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-4",
+      "summary": "FinTrack Pro — AI-Powered Insights Engine",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Epic",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-3",
+      "summary": "FinTrack Pro — Third-Party Integrations",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Epic",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-2",
+      "summary": "FinTrack Pro — Analytics Dashboard",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Epic",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "ODP-1",
+      "summary": "FinTrack Pro — User Authentication & Authorization",
+      "status": "To Do",
+      "priority": "High",
+      "type": "Epic",
+      "updated": "2026-04-21"
+    },
+    {
+      "key": "CIP-200",
+      "summary": "Pontia MVP",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-08"
+    },
+    {
+      "key": "CIP-191",
+      "summary": "Qwerky AI / Garnet Trust",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-08"
+    },
+    {
+      "key": "CIP-192",
+      "summary": "NovaPersonas",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-08"
+    },
+    {
+      "key": "CIP-177",
+      "summary": "Opevsa",
+      "status": "PENDING INFORMATION",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-04-08"
+    },
+    {
+      "key": "AIFIRST-217",
+      "summary": "OpenClaw (Jose Jose)",
+      "status": "In Progress",
+      "priority": "Medium",
+      "type": "Epic",
+      "updated": "2026-03-22"
+    },
+    {
+      "key": "IRSD-114",
+      "summary": " Request the necessary AWS credentials for Spacelift, with permissions to create EC2, IAM Roles and VPC, as you will need them for the Worker Pool.",
+      "status": "Canceled",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2026-03-10"
+    },
+    {
+      "key": "IRSD-115",
+      "summary": " Request the necessary AWS credentials for Spacelift, with permissions to full access, as you will need them for the Worker Pool.",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2026-03-10"
+    },
+    {
+      "key": "IRSD-113",
+      "summary": "AWS account",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2026-03-10"
+    },
+    {
+      "key": "CIP-185",
+      "summary": "Viva Aerobus",
+      "status": "PROJECT DEVELOPMENT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-03-04"
+    },
+    {
+      "key": "IRSD-109",
+      "summary": "Quiero acceso a cowork (dummy)",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2026-03-02"
+    },
+    {
+      "key": "IRSD-105",
+      "summary": "No tengo acceso a Nano Banana PRO",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2026-02-18"
+    },
+    {
+      "key": "IRSD-103",
+      "summary": "Email sospechoso",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2026-02-13"
+    },
+    {
+      "key": "CIP-187",
+      "summary": "Aegis",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-02-09"
+    },
+    {
+      "key": "CIP-142",
+      "summary": "Fynsa",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-02-09"
+    },
+    {
+      "key": "DTT-22",
+      "summary": "Video de onboarding de Software Development Process",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-01-30"
+    },
+    {
+      "key": "DTT-13",
+      "summary": "Crear post de Telegram Febrero:",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-01-30"
+    },
+    {
+      "key": "CIP-182",
+      "summary": "Arturo - App Servicios a Personas Mayores",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2026-01-19"
+    },
+    {
+      "key": "CIP-188",
+      "summary": "Azzule",
+      "status": "WAITING FOR FEEDBACK",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-12-30"
+    },
+    {
+      "key": "CIP-181",
+      "summary": "Smallscale Phase 2",
+      "status": "PROJECT DEVELOPMENT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-12-24"
+    },
+    {
+      "key": "CIP-180",
+      "summary": "Bloque",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-12-08"
+    },
+    {
+      "key": "CIP-165",
+      "summary": "Mireles Legal",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-12-08"
+    },
+    {
+      "key": "CIP-153",
+      "summary": "Dr mireles",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-12-08"
+    },
+    {
+      "key": "CIP-140",
+      "summary": "Cynthus AI",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-11-27"
+    },
+    {
+      "key": "CIP-130",
+      "summary": "Copa de las casas",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-11-27"
+    },
+    {
+      "key": "CIP-128",
+      "summary": "ASPA",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-11-27"
+    },
+    {
+      "key": "CIP-146",
+      "summary": "Chatbot Zaid - Compliance Bot",
+      "status": "PRE-START PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-11-18"
+    },
+    {
+      "key": "IRSD-82",
+      "summary": "Accesos de Dingus para Juan Negron",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-11-14"
+    },
+    {
+      "key": "IRSD-80",
+      "summary": "permiso AWS",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-11-12"
+    },
+    {
+      "key": "IRSD-79",
+      "summary": "Alta y acceso a equipo de integraciones a nuevo repositorio",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-11-12"
+    },
+    {
+      "key": "CIP-166",
+      "summary": "Cynthus Mejoras",
+      "status": "PROJECT DEVELOPMENT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-11-06"
+    },
+    {
+      "key": "CIP-163",
+      "summary": "Mevica - Directorio",
+      "status": "WAITING FOR FEEDBACK",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-11-04"
+    },
+    {
+      "key": "IRSD-74",
+      "summary": "The API GetAccountPlanState was invoked using root credentials.",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-10-31"
+    },
+    {
+      "key": "CAI-205",
+      "summary": "[Vanta] Remediate \"RDS Multi-AZ deployment configured (AWS)\"",
+      "status": "Discarded",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-10-30"
+    },
+    {
+      "key": "CIP-150",
+      "summary": "Pocs AI Gobierno",
+      "status": "ESTIMATION PROCESS",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-10-24"
+    },
+    {
+      "key": "CIP-170",
+      "summary": "Indelpro",
+      "status": "WAITING FOR FEEDBACK",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-10-23"
+    },
+    {
+      "key": "IRSD-49",
+      "summary": "Solicitud de acceso a Jira",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-10-08"
+    },
+    {
+      "key": "IRSD-42",
+      "summary": "Acceso a repos: frontend-capital-premium  y  backend-capital-premium ",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-29"
+    },
+    {
+      "key": "IRSD-43",
+      "summary": "Revocar acceso",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-29"
+    },
+    {
+      "key": "IRSD-41",
+      "summary": "Acceso a Repo de Capital Finance",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-26"
+    },
+    {
+      "key": "CIP-158",
+      "summary": "Otto",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-25"
+    },
+    {
+      "key": "IRSD-7",
+      "summary": "(Test) Virus en mi computadora",
+      "status": "Resolved",
+      "priority": "Highest",
+      "type": "[System] Service request",
+      "updated": "2025-09-23"
+    },
+    {
+      "key": "CISO-372",
+      "summary": "[Vanta] Upload document - Tabletop disaster recovery exercise",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-18"
+    },
+    {
+      "key": "CISO-371",
+      "summary": "[Vanta] Upload document - Maintain data inventory map",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-18"
+    },
+    {
+      "key": "CISO-370",
+      "summary": "[Vanta] Upload document - Data restore test",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-18"
+    },
+    {
+      "key": "CISO-364",
+      "summary": "[Vanta] Remediate \"Application changes reviewed\"",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-18"
+    },
+    {
+      "key": "IRSD-21",
+      "summary": "Solicitud para repositorio SoloPerformance",
+      "status": "Closed",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-18"
+    },
+    {
+      "key": "CIP-135",
+      "summary": "Factor BI",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-15"
+    },
+    {
+      "key": "CIP-152",
+      "summary": "Salesforce Project Requirements",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-15"
+    },
+    {
+      "key": "CIP-105",
+      "summary": "Dingus Template Builder",
+      "status": "FINISHED PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-15"
+    },
+    {
+      "key": "IRSD-19",
+      "summary": "Acceso al repositorio de solo perforemance",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-09"
+    },
+    {
+      "key": "IRSD-17",
+      "summary": "Permiso para ejecutar queries en db de mach9",
+      "status": "Canceled",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-09"
+    },
+    {
+      "key": "CIP-147",
+      "summary": "Viviana Fitness App",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-08"
+    },
+    {
+      "key": "CIP-101",
+      "summary": "AGCM (Marty) AI Project",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-08"
+    },
+    {
+      "key": "CIP-60",
+      "summary": "SIASA",
+      "status": "FINISHED PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-08"
+    },
+    {
+      "key": "CIP-136",
+      "summary": "BH Compliance",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-09-05"
+    },
+    {
+      "key": "IRSD-18",
+      "summary": "Solicitud de acceso",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-04"
+    },
+    {
+      "key": "IRSD-15",
+      "summary": "Acceso al repo de solo performance",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-04"
+    },
+    {
+      "key": "IRSD-13",
+      "summary": "Actualizar correo en el repositorio",
+      "status": "Resolved",
+      "priority": "Medium",
+      "type": "[System] Service request",
+      "updated": "2025-09-04"
+    },
+    {
+      "key": "CISO-361",
+      "summary": "Periodically conduct separate tests focused on severe operation disruptions",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Epic",
+      "updated": "2025-08-28"
+    },
+    {
+      "key": "CISO-349",
+      "summary": "Annual penetration test",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Epic",
+      "updated": "2025-08-18"
+    },
+    {
+      "key": "CISO-181",
+      "summary": "[Vanta] Upload document - Penetration test report",
+      "status": "Blocked",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-08-18"
+    },
+    {
+      "key": "CIP-132",
+      "summary": "Juan Roberto (AI MarketingChatbot) withmatter",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-08-18"
+    },
+    {
+      "key": "CIP-123",
+      "summary": "SmallScale",
+      "status": "PROJECT DEVELOPMENT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-08-18"
+    },
+    {
+      "key": "MT-12",
+      "summary": "Definir estructura de precios para servicios MCP",
+      "status": "To Do",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-08-08"
+    },
+    {
+      "key": "MT-7",
+      "summary": "Agendar sesión con Javier Puc para revisión de la demo técnica para MCP.",
+      "status": "To Do",
+      "priority": "Highest",
+      "type": "Task",
+      "updated": "2025-08-08"
+    },
+    {
+      "key": "IRSD-9",
+      "summary": "Me llegó un mail de phishing",
+      "status": "Resolved",
+      "priority": "Low",
+      "type": "[System] Service request",
+      "updated": "2025-07-30"
+    },
+    {
+      "key": "CISO-165",
+      "summary": "[Vanta] Upload document - Intrusion detection system alerts",
+      "status": "DISCARDED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-07-16"
+    },
+    {
+      "key": "CISO-151",
+      "summary": "[Vanta] Upload document - Data auto-deleted when retention period expires",
+      "status": "DISCARDED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-07-16"
+    },
+    {
+      "key": "CISO-158",
+      "summary": "[Vanta] Upload document - Enabled automated log alerting",
+      "status": "DISCARDED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-07-16"
+    },
+    {
+      "key": "CIP-131",
+      "summary": "Gonca - Cotización Website",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-07-07"
+    },
+    {
+      "key": "CIP-125",
+      "summary": "Proser",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-25"
+    },
+    {
+      "key": "CISO-229",
+      "summary": "[Vanta] Remediate \"Load balancer unhealthy host count monitored (AWS)\"",
+      "status": "DISCARDED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-23"
+    },
+    {
+      "key": "CISO-228",
+      "summary": "[Vanta] Remediate \"Load balancers redirect HTTP to HTTPS (AWS)\"",
+      "status": "DISCARDED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-23"
+    },
+    {
+      "key": "CISO-231",
+      "summary": "[Vanta] Remediate \"Load balancer server errors monitored (AWS)\"",
+      "status": "DISCARDED",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-23"
+    },
+    {
+      "key": "CIP-121",
+      "summary": "Javer",
+      "status": "LOST PROJECT",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-16"
+    },
+    {
+      "key": "CISO-180",
+      "summary": "[Vanta] Upload document - Penetration test remediation",
+      "status": "Blocked",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-13"
+    },
+    {
+      "key": "CISO-268",
+      "summary": "[Vanta] Remediate \"Vulnerability scanning is enabled (AWS)\"",
+      "status": "Blocked",
+      "priority": "Medium",
+      "type": "Task",
+      "updated": "2025-06-04"
+    }
+  ]
+}

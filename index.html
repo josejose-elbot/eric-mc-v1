@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control — DaCodes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --surface: #111111;
+      --surface-hover: #1a1a1a;
+      --border: #222;
+      --accent: #6366F1;
+      --accent-hover: #818cf8;
+      --success: #10B981;
+      --danger: #EF4444;
+      --warning: #F59E0B;
+      --text: #fff;
+      --text-dim: #888;
+      --text-muted: #555;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    /* Login Screen */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #login-screen.hidden { display: none; }
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+    .login-box h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .login-box p {
+      color: var(--text-dim);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      margin-bottom: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .login-box input:focus { border-color: var(--accent); }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-box button:hover { background: var(--accent-hover); }
+    .login-error {
+      color: var(--danger);
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+    }
+    
+    /* Main Layout */
+    #app { display: none; }
+    #app.visible { display: block; }
+    
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar-header h2 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+    .sidebar-header span {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .nav-item:hover { background: var(--surface-hover); color: var(--text); }
+    .nav-item.active { background: rgba(99,102,241,0.1); color: var(--accent); }
+    .nav-item .icon { font-size: 18px; }
+    
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .refresh-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-dim);
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .refresh-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .refresh-btn.loading { opacity: 0.5; pointer-events: none; }
+    .refresh-btn .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+    .refresh-btn.loading .spinner { display: block; }
+    .refresh-btn.loading .icon { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .datetime {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .stat-card .label {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+    .stat-card .value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .stat-card .value.danger { color: var(--danger); }
+    .stat-card .value.warning { color: var(--warning); }
+    
+    /* Module Views */
+    .module-view { display: none; }
+    .module-view.active { display: block; }
+    
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .badge {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .badge.urgent { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .badge.info { background: rgba(99,102,241,0.2); color: var(--accent); }
+    .badge.success { background: rgba(16,185,129,0.2); color: var(--success); }
+    .badge.warning { background: rgba(245,158,11,0.2); color: var(--warning); }
+    
+    /* Email List */
+    .email-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .email-item:hover { background: var(--surface-hover); }
+    .email-item.unread { border-left: 3px solid var(--accent); }
+    .email-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--surface-hover);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .email-content { flex: 1; min-width: 0; }
+    .email-from {
+      font-weight: 500;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .email-subject {
+      font-size: 13px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .email-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .email-label {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-left: 8px;
+    }
+    
+    /* Jira Tickets */
+    .ticket-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--surface-hover);
+      margin-bottom: 8px;
+    }
+    .ticket-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+      min-width: 80px;
+    }
+    .ticket-title { flex: 1; font-size: 14px; }
+    .ticket-status {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .ticket-status.in-progress { background: rgba(99,102,241,0.2); color: var(--accent); }
+    .ticket-status.blocked { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .ticket-status.todo { background: rgba(136,136,136,0.2); color: #888; }
+    
+    /* Calendar */
+    .meeting-item {
+      display: flex;
+      gap: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--surface-hover);
+      margin-bottom: 8px;
+    }
+    .meeting-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      min-width: 100px;
+    }
+    .meeting-info { flex: 1; }
+    .meeting-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .meeting-participants { font-size: 12px; color: var(--text-dim); }
+    .meeting-link a {
+      font-size: 12px;
+      color: var(--success);
+      text-decoration: none;
+    }
+    
+    /* Action Items */
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--surface-hover);
+      margin-bottom: 8px;
+    }
+    .action-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .action-content { flex: 1; }
+    .action-text { font-size: 14px; margin-bottom: 4px; }
+    .action-meta {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+    .action-meta .owner { color: var(--accent); }
+    .action-due {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .action-due.overdue { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .action-due.soon { background: rgba(245,158,11,0.2); color: var(--warning); }
+    
+    /* Deploys */
+    .deploy-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--surface-hover);
+      margin-bottom: 12px;
+    }
+    .deploy-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .deploy-icon.ready { background: rgba(16,185,129,0.2); }
+    .deploy-icon.building { background: rgba(245,158,11,0.2); }
+    .deploy-icon.error { background: rgba(239,68,68,0.2); }
+    .deploy-info { flex: 1; }
+    .deploy-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .deploy-url { font-size: 13px; color: var(--text-dim); }
+    .deploy-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-dim);
+    }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar { width: 200px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .layout { flex-direction: column; }
+      .sidebar { width: 100%; flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 12px; }
+      .sidebar-header { display: none; }
+      .nav-item { padding: 10px 16px; white-space: nowrap; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>🐾 Mission Control</h1>
+      <p>Ingresa tu password para acceder</p>
+      <input type="password" id="password-input" placeholder="Password" autocomplete="off">
+      <button onclick="login()">Entrar</button>
+      <div class="login-error" id="login-error">Password incorrecto</div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app">
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>MISSION CONTROL</h2>
+          <span class="mono">DaCodes</span>
+        </div>
+        <div class="nav-item active" data-module="overview">
+          <span class="icon">📊</span>
+          <span>Resumen</span>
+        </div>
+        <div class="nav-item" data-module="inbox">
+          <span class="icon">📧</span>
+          <span>Inbox</span>
+        </div>
+        <div class="nav-item" data-module="jira">
+          <span class="icon">📋</span>
+          <span>Proyectos</span>
+        </div>
+        <div class="nav-item" data-module="calendar">
+          <span class="icon">📅</span>
+          <span>Agenda</span>
+        </div>
+        <div class="nav-item" data-module="meetings">
+          <span class="icon">✅</span>
+          <span>Action Items</span>
+        </div>
+        <div class="nav-item" data-module="deploys">
+          <span class="icon">🚀</span>
+          <span>Deploys</span>
+        </div>
+      </aside>
+      
+      <main class="main">
+        <header class="header">
+          <h1 id="page-title">Resumen del Día</h1>
+          <div class="header-right">
+            <button class="refresh-btn" onclick="refreshData()">
+              <span class="icon">🔄</span>
+              <span class="spinner"></span>
+              <span>Actualizar</span>
+            </button>
+            <div class="datetime mono" id="datetime"></div>
+          </div>
+        </header>
+
+        <!-- Overview Module -->
+        <div class="module-view active" id="module-overview">
+          <div class="stats-bar">
+            <div class="stat-card">
+              <div class="label">Emails No Leídos</div>
+              <div class="value" id="stat-emails">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Reuniones Hoy</div>
+              <div class="value" id="stat-meetings">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Tickets Activos</div>
+              <div class="value" id="stat-tickets">—</div>
+            </div>
+            <div class="stat-card">
+              <div class="label">Action Items</div>
+              <div class="value" id="stat-actions">—</div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🔴 Alertas</span>
+            </div>
+            <div id="alerts-list">
+              <div class="empty-state">
+                <div class="icon">✅</div>
+                <div>Sin alertas</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">📅 Próxima Reunión</span>
+            </div>
+            <div id="next-meeting">
+              <div class="empty-state">
+                <div class="icon">📅</div>
+                <div>No hay más reuniones hoy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inbox Module -->
+        <div class="module-view" id="module-inbox">
+          <div id="email-list"></div>
+        </div>
+
+        <!-- Jira Module -->
+        <div class="module-view" id="module-jira">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🔴 Blocked</span>
+            </div>
+            <div id="jira-blocked"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">🟡 In Progress</span>
+            </div>
+            <div id="jira-progress"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">⚪ To Do</span>
+            </div>
+            <div id="jira-todo"></div>
+          </div>
+        </div>
+
+        <!-- Calendar Module -->
+        <div class="module-view" id="module-calendar">
+          <div id="calendar-list"></div>
+        </div>
+
+        <!-- Meetings/Action Items Module -->
+        <div class="module-view" id="module-meetings">
+          <div id="action-list"></div>
+        </div>
+
+        <!-- Deploys Module -->
+        <div class="module-view" id="module-deploys">
+          <div id="deploy-list"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT_PASSWORD = 'Openclaw123!';
+    let isLoggedIn = false;
+    let data = {};
+    
+    // Login
+    function login() {
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('login-error');
+      
+      if (input.value === CORRECT_PASSWORD) {
+        isLoggedIn = true;
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('app').classList.add('visible');
+        localStorage.setItem('mc_logged_in', 'true');
+        initApp();
+      } else {
+        error.style.display = 'block';
+        input.value = '';
+      }
+    }
+    
+    document.getElementById('password-input').addEventListener('keypress', e => {
+      if (e.key === 'Enter') login();
+    });
+    
+    // Check stored session
+    if (localStorage.getItem('mc_logged_in') === 'true') {
+      document.getElementById('login-screen').classList.add('hidden');
+      document.getElementById('app').classList.add('visible');
+      initApp();
+    }
+    
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('.module-view').forEach(m => m.classList.remove('active'));
+        item.classList.add('active');
+        document.getElementById('module-' + item.dataset.module).classList.add('active');
+        
+        const titles = {
+          overview: 'Resumen del Día',
+          inbox: 'Bandeja de Entrada',
+          jira: 'Proyectos Jira',
+          calendar: 'Agenda',
+          meetings: 'Action Items',
+          deploys: 'Deploys'
+        };
+        document.getElementById('page-title').textContent = titles[item.dataset.module];
+      });
+    });
+    
+    // DateTime
+    function updateDateTime() {
+      const now = new Date();
+      const options = { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false
+      };
+      document.getElementById('datetime').textContent = now.toLocaleDateString('es-ES', options);
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+    
+    // Refresh Data - Calls all APIs
+    async function refreshData() {
+      const btn = document.querySelector('.refresh-btn');
+      btn.classList.add('loading');
+      
+      try {
+        // Fetch all data in parallel
+        const [gmailRes, jiraRes, calendarRes, actionsRes, deploysRes] = await Promise.all([
+          fetch('/api/gmail').then(r => r.json()).catch(() => ({ success: false })),
+          fetch('/api/jira').then(r => r.json()).catch(() => ({ success: false })),
+          fetch('/api/calendar').then(r => r.json()).catch(() => ({ success: false })),
+          fetch('/api/actions').then(r => r.json()).catch(() => ({ success: false })),
+          fetch('/api/deploys').then(r => r.json()).catch(() => ({ success: false }))
+        ]);
+        
+        // Store data globally
+        data = { gmail: gmailRes, jira: jiraRes, calendar: calendarRes, actions: actionsRes, deploys: deploysRes };
+        
+        // Update overview stats
+        document.getElementById('stat-emails').textContent = gmailRes.success ? gmailRes.unreadCount : '—';
+        document.getElementById('stat-meetings').textContent = calendarRes.success ? calendarRes.todayTotal : '—';
+        document.getElementById('stat-tickets').textContent = jiraRes.success ? (jiraRes.blocked?.length + jiraRes.inProgress?.length + jiraRes.todo?.length) : '—';
+        document.getElementById('stat-actions').textContent = actionsRes.success ? actionsRes.totalPending : '—';
+        
+        // Render alerts
+        renderAlerts(gmailRes, jiraRes, calendarRes);
+        
+        // Render next meeting
+        renderNextMeeting(calendarRes);
+        
+        // Render email list
+        renderEmails(gmailRes);
+        
+        // Render Jira tickets
+        renderJira(jiraRes);
+        
+        // Render calendar
+        renderCalendar(calendarRes);
+        
+        // Render action items
+        renderActions(actionsRes);
+        
+        // Render deploys
+        renderDeploys(deploysRes);
+        
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+      
+      btn.classList.remove('loading');
+    }
+    
+    function renderAlerts(gmail, jira, calendar) {
+      const container = document.getElementById('alerts-list');
+      const alerts = [];
+      
+      if (jira.success && jira.blocked?.length > 0) {
+        alerts.push(`🔴 ${jira.blocked.length} ticket(s) bloqueado(s)`);
+      }
+      if (gmail.success && gmail.unreadCount > 5) {
+        alerts.push(`📧 ${gmail.unreadCount} emails no leídos`);
+      }
+      if (calendar.success && calendar.nextMeeting) {
+        const meetingTime = new Date();
+        const [hours, mins] = calendar.nextMeeting.time.split(':');
+        meetingTime.setHours(hours, mins, 0, 0);
+        const diff = meetingTime - new Date();
+        if (diff > 0 && diff < 3600000) {
+          alerts.push(`📅 Reunión en menos de 1 hora`);
+        }
+      }
+      
+      if (alerts.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">✅</div><div>Sin alertas</div></div>';
+      } else {
+        container.innerHTML = alerts.map(a => `<div class="email-item">${a}</div>`).join('');
+      }
+    }
+    
+    function renderNextMeeting(calendar) {
+      const container = document.getElementById('next-meeting');
+      if (!calendar.success || !calendar.nextMeeting) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">📅</div><div>No hay más reuniones hoy</div></div>';
+        return;
+      }
+      const m = calendar.nextMeeting;
+      const participants = m.participants?.join(', ') || 'Sin participantes';
+      const meetLink = m.meetLink ? `<a href="${m.meetLink}" target="_blank">🎥 Unirse</a>` : '';
+      container.innerHTML = `
+        <div class="meeting-item">
+          <div class="meeting-time">${m.time}</div>
+          <div class="meeting-info">
+            <div class="meeting-title">${m.title}</div>
+            <div class="meeting-participants">${participants}</div>
+            ${m.countdown ? `<div class="badge warning">⏱️ ${m.countdown}</div>` : ''}
+          </div>
+          <div class="meeting-link">${meetLink}</div>
+        </div>
+      `;
+    }
+    
+    function renderEmails(gmail) {
+      const container = document.getElementById('email-list');
+      if (!gmail.success || !gmail.emails?.length) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">📧</div><div>No hay emails</div></div>';
+        return;
+      }
+      container.innerHTML = gmail.emails.map(email => {
+        const labelColors = { cliente: '#10B981', RFP: '#F59E0B', interno: '#6366F1', ruido: '#888' };
+        return `
+          <div class="email-item ${email.unread ? 'unread' : ''}">
+            <div class="email-avatar">${email.fromName.charAt(0)}</div>
+            <div class="email-content">
+              <div class="email-from">${email.fromName}</div>
+              <div class="email-subject">${email.subject}</div>
+            </div>
+            <div>
+              <span class="email-time">${email.time}</span>
+              <span class="email-label" style="background:${labelColors[email.label]}22;color:${labelColors[email.label]}">${email.label}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function renderJira(jira) {
+      const renderTickets = (tickets, status) => {
+        if (!tickets?.length) return '<div class="empty-state"><div class="icon">📋</div><div>Sin tickets</div></div>';
+        return tickets.map(t => `
+          <div class="ticket-item">
+            <span class="ticket-key">${t.key}</span>
+            <span class="ticket-title">${t.title}</span>
+            <span class="ticket-status ${status}">${t.status}</span>
+          </div>
+        `).join('');
+      };
+      
+      document.getElementById('jira-blocked').innerHTML = jira.success ? renderTickets(jira.blocked, 'blocked') : '—';
+      document.getElementById('jira-progress').innerHTML = jira.success ? renderTickets(jira.inProgress, 'in-progress') : '—';
+      document.getElementById('jira-todo').innerHTML = jira.success ? renderTickets(jira.todo, 'todo') : '—';
+    }
+    
+    function renderCalendar(calendar) {
+      const container = document.getElementById('calendar-list');
+      if (!calendar.success || !calendar.meetings?.length) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">📅</div><div>No hay reuniones hoy</div></div>';
+        return;
+      }
+      container.innerHTML = calendar.meetings.map(m => {
+        const participants = m.participants?.join(', ') || 'Sin participantes';
+        const meetLink = m.meetLink ? `<a href="${m.meetLink}" target="_blank">🎥 Meet</a>` : '';
+        return `
+          <div class="meeting-item">
+            <div class="meeting-time">${m.time}</div>
+            <div class="meeting-info">
+              <div class="meeting-title">${m.title}</div>
+              <div class="meeting-participants">${participants}</div>
+            </div>
+            <div class="meeting-link">${meetLink}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function renderActions(actions) {
+      const container = document.getElementById('action-list');
+      if (!actions.success || !actions.actions?.length) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">✅</div><div>No hay action items</div></div>';
+        return;
+      }
+      container.innerHTML = actions.actions.map(a => {
+        const dueDate = new Date(a.dueDate);
+        const today = new Date();
+        const isOverdue = dueDate < today;
+        const isSoon = !isOverdue && (dueDate - today) < 172800000; // 48 hours
+        const dueClass = isOverdue ? 'overdue' : isSoon ? 'soon' : '';
+        return `
+          <div class="action-item">
+            <div class="action-checkbox"></div>
+            <div class="action-content">
+              <div class="action-text">${a.text}</div>
+              <div class="action-meta"><span class="owner">${a.owner}</span> · ${a.meetingTitle}</div>
+            </div>
+            <div class="action-due ${dueClass}">${dueDate.toLocaleDateString('es-ES', {month:'short', day:'numeric'})}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function renderDeploys(deploys) {
+      const container = document.getElementById('deploy-list');
+      if (!deploys.success || !deploys.deploys?.length) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">🚀</div><div>No hay deploys</div></div>';
+        return;
+      }
+      container.innerHTML = deploys.deploys.map(d => {
+        const statusIcons = { ready: '✅', building: '⏳', error: '❌' };
+        const time = new Date(d.lastDeploy).toLocaleString('es-ES', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        return `
+          <div class="deploy-item">
+            <div class="deploy-icon ${d.status}">${statusIcons[d.status]}</div>
+            <div class="deploy-info">
+              <div class="deploy-name">${d.name}</div>
+              <div class="deploy-url"><a href="${d.url}" target="_blank">${d.url.replace('https://','')}</a></div>
+            </div>
+            <div class="deploy-time">${time}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // Init App
+    function initApp() {
+      refreshData(); // Load data on init
+    }
+  </script>
+</body>
+</html>
