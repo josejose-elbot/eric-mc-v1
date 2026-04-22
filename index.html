@@ -748,11 +748,26 @@
     
     function renderNextMeeting(calendar) {
       const container = document.getElementById('next-meeting');
-      if (!calendar.success || !calendar.nextMeeting) {
+      if (!calendar.success || !calendar.meetings || calendar.meetings.length === 0) {
         container.innerHTML = '<div class="empty-state"><div class="icon">📅</div><div>No hay más reuniones hoy</div></div>';
         return;
       }
-      const m = calendar.nextMeeting;
+      
+      // Get current time and filter future meetings
+      const now = new Date();
+      const currentMinutes = now.getHours() * 60 + now.getMinutes();
+      const futureMeetings = calendar.meetings.filter(m => {
+        const [h, min] = m.time.split(':').map(Number);
+        const meetingMinutes = h * 60 + min;
+        return meetingMinutes > currentMinutes;
+      });
+      
+      if (futureMeetings.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="icon">📅</div><div>No hay más reuniones hoy</div></div>';
+        return;
+      }
+      
+      const m = futureMeetings[0];
       const participants = m.participants?.join(', ') || 'Sin participantes';
       const meetLink = m.meetLink ? `<a href="${m.meetLink}" target="_blank">🎥 Unirse</a>` : '';
       container.innerHTML = `
