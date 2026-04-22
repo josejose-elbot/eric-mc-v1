@@ -128,3 +128,264 @@
     }
   ]
 }
+{
+  "events": [
+    {
+      "id": "ssrcp0bfj7kvhjregbuhd1aj88_20260422",
+      "title": "Home",
+      "start": "2026-04-22",
+      "attendees": [],
+      "meet_link": ""
+    },
+    {
+      "id": "6vo8d7vb2rjglhlq1ig048jgq7_20260422T160000Z",
+      "title": "AI Council (Lun., Mi. Presencial, Vi.) - Migración a Claude",
+      "start": "2026-04-22T10:00:00-06:00",
+      "attendees": [
+        "octavio.martinez@dacodes.com",
+        "carlos.vela@dacodes.com",
+        "joel.alanis@dacodes.com",
+        "jorge.campos@dacodes.com",
+        "mauricio.moreno@dacodes.com",
+        "eric.segovia@dacodes.com",
+        "alejandro.hynds@dacodes.com",
+        "estefania.cairella@dacodes.com",
+        "diana.rubio@dacodes.com",
+        "daniela.olivares@dacodes.com",
+        "mitzi.delacruz@dacodes.com",
+        "mayra.recio@dacodes.com",
+        "elisa.guinto@dacodes.com",
+        "veronica.castillo@dacodes.com",
+        "sarah.mousa@dacodes.com",
+        "regina.camara@dacodes.com",
+        "paola.zalce@dacodes.com",
+        "brenda.escalante@dacodes.com",
+        "aniela.vizcarra@dacodes.com",
+        "admin@dacodes.com",
+        "andrea.ruiz@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/muq-vtuw-wmn"
+    },
+    {
+      "id": "374fd8i0dgh3ggc23bl1uu6luq",
+      "title": "Openclaw",
+      "start": "2026-04-22T12:00:00-06:00",
+      "attendees": [],
+      "meet_link": ""
+    },
+    {
+      "id": "0s07qrotnodfu50mtj76rkac0v_20260422T180000Z",
+      "title": "Transporte Casa",
+      "start": "2026-04-22T12:30:00-06:00",
+      "attendees": [],
+      "meet_link": ""
+    },
+    {
+      "id": "28bti2if3voeufnk89cbp3v4et_20260422T200000Z",
+      "title": "Comida",
+      "start": "2026-04-22T13:00:00-06:00",
+      "attendees": [],
+      "meet_link": ""
+    },
+    {
+      "id": "_61130h9n8gqj8ba1612jcb9k6gs3cba16kp34ba284rj2dhk8osk4gi46k",
+      "title": "Preparación Evento",
+      "start": "2026-04-22T14:00:00-06:00",
+      "attendees": [
+        "alexander.vazquez@dacodes.com",
+        "brenda.escalante@dacodes.com",
+        "eric.segovia@dacodes.com",
+        "mauricio.moreno@dacodes.com",
+        "mitzi.delacruz@dacodes.com",
+        "paola.zalce@dacodes.com",
+        "veronica.castillo@dacodes.com"
+      ],
+      "meet_link": ""
+    },
+    {
+      "id": "127eak56f3vbbu9008dl9ic6mn",
+      "title": "OpenClaw Demo Night CIAY-DaCodes",
+      "start": "2026-04-22T18:30:00-06:00",
+      "attendees": [
+        "mitzi.delacruz@dacodes.com",
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/yqx-tzwf-mpv"
+    },
+    {
+      "id": "5jfkrn2fklagqshutc5u878co0_20260423",
+      "title": "Home",
+      "start": "2026-04-23",
+      "attendees": [],
+      "meet_link": ""
+    },
+    {
+      "id": "6s0oe1urnvt3pmv5nspvucd7gp_20260422T220000Z",
+      "title": "Sesión Semanal Procesos Dev.",
+      "start": "2026-04-23T09:00:00-06:00",
+      "attendees": [
+        "felix.huchin@dacodes.com",
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/prf-uutx-gvu"
+    },
+    {
+      "id": "eekapimpj8lnnpr300vfgqtu3a_20260423T153000Z",
+      "title": "Standup meeting - Firelab",
+      "start": "2026-04-23T09:30:00-06:00",
+      "attendees": [
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/cnf-enbh-ccx"
+    },
+    {
+      "id": "1cmdkq901j648tair6128bvmia",
+      "title": "Claude Partnership",
+      "start": "2026-04-23T10:00:00-06:00",
+      "attendees": [
+        "octavio.martinez@dacodes.com",
+        "eric.segovia@dacodes.com",
+        "adrian.alcantara@dacodes.com",
+        "agustin.ibanez@dacodes.com",
+        "alejandro.hynds@dacodes.com",
+        "alexander.vazquez@dacodes.com",
+        "angel.puc@dacodes.com",
+        "armando.hernandez@dacodes.com",
+        "carlos.castro@dacodes.com",
+        "carlos.vela@dacodes.com",
+        "federico.cingolani@dacodes.com",
+        "felix.huchin@dacodes.com",
+        "gines.gazquez@dacodes.com",
+        "jesus.cabrita@dacodes.com",
+        "joel.alanis@dacodes.com",
+        "jorge.campos@dacodes.com",
+        "jorgeluis.pineda@dacodes.com",
+        "jose.nah@dacodes.com",
+        "jose.sulbaran@dacodes.com",
+        "juan.martin@dacodes.com",
+        "juan.negron@dacodes.com",
+        "julio.sanjuan@dacodes.com",
+        "laura.mex@dacodes.com",
+        "laura.zambrano@dacodes.com",
+        "lucio.busatto@dacodes.com",
+        "matias.lezama@dacodes.com",
+        "ramiro.redona@dacodes.com",
+        "roberto.quintero@dacodes.com",
+        "sebastian.starck@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/mwp-skvb-gyf"
+    },
+    {
+      "id": "5i8ilgpvcqkseeteqn3hk276kl_20260423T163000Z",
+      "title": "Carlos <> Eric Weekly",
+      "start": "2026-04-23T10:30:00-06:00",
+      "attendees": [
+        "carlos.vela@dacodes.com",
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/izw-zppi-yoe"
+    },
+    {
+      "id": "2bkj2kgqmnul4a0f5bmv2qrfss",
+      "title": "Dacodes | Sesión Técnica | Conector Hubspot",
+      "start": "2026-04-23T11:00:00-06:00",
+      "attendees": [
+        "octavio.martinez@dacodes.com",
+        "s.narvaez@ucloudglobal.com",
+        "w.villalobos@ucloudstore.com",
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/doy-fnur-vrm"
+    },
+    {
+      "id": "30l424n9qmb7619fb163d5ajij_20260423T170000Z",
+      "title": "Junta PM",
+      "start": "2026-04-23T11:00:00-06:00",
+      "attendees": [
+        "eric.segovia@dacodes.com",
+        "carlos.vela@dacodes.com",
+        "joel.alanis@dacodes.com",
+        "alejandra.polanco@dacodes.com",
+        "greta.gonzalez@dacodes.com",
+        "mitzi.delacruz@dacodes.com",
+        "octavio.martinez@dacodes.com",
+        "felix.huchin@dacodes.com",
+        "jose.maldonado@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/kue-chxn-krf"
+    },
+    {
+      "id": "3d1mrgjus3mchk50it4hplakgm",
+      "title": "1:1 Eric - Adrian Alcantara",
+      "start": "2026-04-23T12:00:00-06:00",
+      "attendees": [
+        "adrian.alcantara@dacodes.com",
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/hem-nhrm-rwo"
+    },
+    {
+      "id": "gucs3svo2du6tjri0gmmtq1fsm_20260423T183000Z",
+      "title": "Daily Meeting AI Team",
+      "start": "2026-04-23T12:30:00-06:00",
+      "attendees": [
+        "carlos.vela@dacodes.com",
+        "eric.segovia@dacodes.com",
+        "laura.mex@dacodes.com",
+        "laura.zambrano@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/bcf-qpre-fpb"
+    },
+    {
+      "id": "_60q30c1g60o30e1i60o4ac1g60rj8gpl88rj2c1h84s34h9g60s30c1g60o30c1g8l332chp6cojaghn6oq48gpg64o30c1g60o30c1g60o30c1g60o32c1g60o30c1g8kok6h258kojah9g8kok4c9k68s3ch1l70o46ghi8p246e258h1g_20260421T170000Z",
+      "title": "Checkpoint Semanal - Centro de IA Yucatán (CIAY)",
+      "start": "2026-04-23T13:00:00-06:00",
+      "attendees": [
+        "mitzi.delacruz@dacodes.com",
+        "veronica.castillo@dacodes.com",
+        "mauricio.moreno@dacodes.com",
+        "eric.segovia@dacodes.com",
+        "crishec@amazon.com",
+        "fmorenoo@amazon.com",
+        "rangalej@amazon.com",
+        "sartorij@amazon.com.ar",
+        "sonck@amazon.com",
+        "virigonf@amazon.com",
+        "giarvi@amazon.com",
+        "jaijesu@amazon.com",
+        "mbbaque@amazon.com",
+        "mllndav@amazon.com"
+      ],
+      "meet_link": ""
+    },
+    {
+      "id": "28bti2if3voeufnk89cbp3v4et_20260423T200000Z",
+      "title": "Comida",
+      "start": "2026-04-23T13:30:00-06:00",
+      "attendees": [],
+      "meet_link": ""
+    },
+    {
+      "id": "1r0un7lqm24724fbgf4dop1pib_20260423T200000Z",
+      "title": "IT/Sales",
+      "start": "2026-04-23T14:30:00-06:00",
+      "attendees": [
+        "carlos.vela@dacodes.com",
+        "eric.segovia@dacodes.com",
+        "felix.huchin@dacodes.com",
+        "joel.alanis@dacodes.com",
+        "rodrigo.loeza@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/jwv-zrpn-jau"
+    },
+    {
+      "id": "0tfd490ilg9oldk5k0qnq76u1c",
+      "title": "Entrevista AI Engineer DaCodes-Cipriano Callejas",
+      "start": "2026-04-23T15:00:00-06:00",
+      "attendees": [
+        "eric.segovia@dacodes.com"
+      ],
+      "meet_link": "https://meet.google.com/gks-osjx-orb"
+    }
+  ]
+}
