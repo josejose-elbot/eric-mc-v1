@@ -9,39 +9,61 @@ function parseEmailFromSnippet(snippet) {
   let subject = 'Sin asunto';
   let label = 'interno';
   
-  // Pattern 1: "Name made an update Project / Issue-Title"
-  if (snippet.includes(' made an update ')) {
-    const parts = snippet.split(' made an update ');
+  // Clean up snippet - remove email markers
+  const clean = snippet.replace(/\u200b/g, '').replace(/͏/g, '').trim();
+  
+  // Pattern 1: "Name made an update Project / Issue-Title TIME"
+  if (clean.includes(' made an update ')) {
+    const parts = clean.split(' made an update ');
     fromName = parts[0].trim();
-    const rest = parts.slice(1).join(' made an update ');
+    let rest = parts.slice(1).join(' ');
+    // Extract just the project/key and title, remove time at end
     if (rest.includes('/')) {
-      subject = rest.split('/').slice(1).join('/').trim().substring(0, 60);
+      const projParts = rest.split('/');
+      project = projParts[0].trim();
+      titlePart = projParts.slice(1).join('/').trim();
+      // Remove time like "10:34 AM"
+      titlePart = titlePart.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim();
+      subject = `${project}: ${titlePart}`.substring(0, 50);
     } else {
-      subject = rest.substring(0, 60);
+      subject = rest.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
     }
     label = 'interno';
   }
-  else if (snippet.toLowerCase().includes('circleback')) {
+  // Pattern 2: Circleback
+  else if (clean.toLowerCase().includes('circleback')) {
     fromName = 'Circleback';
-    subject = snippet.split('notes')[0].trim().substring(0, 60) || 'Notas';
+    const notesIdx = clean.toLowerCase().indexOf('notes');
+    subject = notesIdx > 0 ? clean.substring(0, notesIdx).trim() : clean.substring(0, 50);
+    subject = subject.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
     label = 'cliente';
   }
-  else if (snippet.toLowerCase().includes('new course') || snippet.toLowerCase().includes('join us')) {
-    fromName = snippet.includes('Snowflake') ? 'Snowflake' : 
-               snippet.includes('Azure') ? 'Microsoft Azure' : 'Newsletter';
-    subject = snippet.substring(0, 60);
+  // Pattern 3: Course notifications
+  else if (clean.toLowerCase().includes('new course')) {
+    fromName = 'Snowflake';
+    subject = clean.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
     label = 'ruido';
   }
-  else if (snippet.toLowerCase().includes('gestión') || snippet.toLowerCase().includes('azure')) {
-    fromName = snippet.includes('Azure') ? 'Microsoft Azure' : 'Notificación';
-    subject = snippet.split('Date/Time')[0].trim().substring(0, 60);
+  else if (clean.toLowerCase().includes('join us')) {
+    fromName = 'Newsletter';
+    subject = clean.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
+    label = 'ruido';
+  }
+  // Pattern 4: Azure/Cloud
+  else if (clean.toLowerCase().includes('azure') || clean.toLowerCase().includes('gestión')) {
+    fromName = 'Microsoft Azure';
+    const dateIdx = clean.toLowerCase().indexOf('date/time');
+    subject = dateIdx > 0 ? clean.substring(0, dateIdx).trim() : clean.substring(0, 50);
+    subject = subject.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
     label = 'interno';
   }
+  // Default
   else {
-    subject = snippet.split(' ').slice(0, 5).join(' ') || 'Sin asunto';
-    if (snippet.toLowerCase().includes('rfp') || snippet.toLowerCase().includes('propuesta') || snippet.toLowerCase().includes('cotiz')) {
+    fromName = 'Unknown';
+    subject = clean.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
+    if (clean.toLowerCase().includes('rfp') || clean.toLowerCase().includes('propuesta') || clean.toLowerCase().includes('cotiz')) {
       label = 'cliente';
-    } else if (snippet.toLowerCase().includes('jira') || snippet.toLowerCase().includes('update')) {
+    } else if (clean.toLowerCase().includes('jira') || clean.toLowerCase().includes('update')) {
       label = 'interno';
     } else {
       label = 'ruido';
@@ -72,7 +94,7 @@ export default async function handler(req, res) {
         fromName: parsed.fromName,
         subject: parsed.subject,
         time: 'recién',
-        unread: true, // Most recent emails - assume unread
+        unread: true,
         label: parsed.label
       };
     });
