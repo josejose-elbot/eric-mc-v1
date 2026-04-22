@@ -1,6 +1,6 @@
 // API route for Jira data - fetches from GitHub raw
 
-const GITHUB_RAW = 'https://raw.githubusercontent.com/josejose-elbot/eric-mc-v1/master/data';
+const GITHUB_RAW = 'https://raw.githubusercontent.com/josejose-elbot/eric-mc-v1/main/data';
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

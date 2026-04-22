@@ -1,6 +1,6 @@
 // API route for Gmail data - fetches from GitHub raw
 
-const GITHUB_RAW = 'https://raw.githubusercontent.com/josejose-elbot/eric-mc-v1/master/data';
+const GITHUB_RAW = 'https://raw.githubusercontent.com/josejose-elbot/eric-mc-v1/main/data';
 
 function parseEmailFromSnippet(snippet) {
   if (!snippet) return { fromName: 'Unknown', subject: 'Sin asunto', label: 'interno' };
