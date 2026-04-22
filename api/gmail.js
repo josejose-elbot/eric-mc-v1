@@ -99,17 +99,48 @@ export default async function handler(req, res) {
     const listData = await listRes.json();
     
     const emails = (listData || []).map((m, i) => {
+      const fromHeader = m.from || '';
+      const subject = m.subject || '';
       const snippet = m.snippet || '';
-      const parsed = parseEmailFromSnippet(snippet);
+      
+      // Extract sender name from From header
+      let fromName = 'Unknown';
+      if (fromHeader) {
+        // Extract name from "Name <email@domain.com>" or just "email@domain.com"
+        const match = fromHeader.match(/^([^<\n]+)</?([^>\n]+)>?/);
+        if (match) {
+          fromName = match[1].trim();
+          if (!fromName) fromName = match[2].split('@')[0];
+        } else {
+          fromName = fromHeader.split('@')[0];
+        }
+      }
+      
+      // Clean subject - remove [EXTERNAL EMAIL] tags and decode entities
+      let cleanSubject = subject.replace(/\[EXTERNAL EMAIL\]/gi, '').replace(/RE:\s*/gi, '').trim();
+      cleanSubject = cleanSubject.replace(/&amp;/g, '&').replace(/&#39;/g, "'").substring(0, 55);
+      
+      // Classify
+      let label = 'trabajo';
+      const lowerC = (cleanSubject + snippet).toLowerCase();
+      if (lowerC.includes('entrevista') || lowerC.includes('job') || lowerC.includes('hiring') || lowerC.includes('cv')) {
+        label = 'rrhh';
+      } else if (lowerC.includes('dora') || lowerC.includes('atlassian') || lowerC.includes('webinar') || lowerC.includes('snowflake') || lowerC.includes('newsletter')) {
+        label = 'ruido';
+      } else if (lowerC.includes('propuesta') || lowerC.includes('cotiz') || lowerC.includes('rfp') || lowerC.includes('consultoria')) {
+        label = 'cliente';
+      } else if (lowerC.includes('jira') || lowerC.includes('made an update') || lowerC.includes('circleback')) {
+        label = 'interno';
+      }
       
       return {
         id: m.id || String(i + 1),
-        from: parsed.fromName.toLowerCase().replace(' ', '.') + '@email.com',
-        fromName: parsed.fromName,
-        subject: parsed.subject,
+        from: fromHeader,
+        fromName: fromName,
+        subject: cleanSubject || snippet.split(' ').slice(0, 6).join(' '),
         time: 'recién',
         unread: true,
-        label: parsed.label
+        label: label
       };
     });
     
