@@ -1,51 +1,36 @@
-// API route for Vercel Deploys
+// API route for Deploys data - fetches from GitHub raw
+
+const GITHUB_RAW = 'https://raw.githubusercontent.com/josejose-elbot/eric-mc-v1/master/data';
 
 export default async function handler(req, res) {
-  const demoDeploys = [
-    {
-      id: '1',
-      name: 'payflow-landing',
-      url: 'https://payflow-landing.vercel.app',
-      status: 'ready',
-      lastDeploy: '2026-04-22T06:50:00Z',
-      branch: 'main'
-    },
-    {
-      id: '2',
-      name: 'openclaw-pacman',
-      url: 'https://openclaw-pacman.vercel.app',
-      status: 'ready',
-      lastDeploy: '2026-04-22T07:20:00Z',
-      branch: 'main'
-    },
-    {
-      id: '3',
-      name: 'mc-dashboard',
-      url: 'https://mc-dashboard.vercel.app',
-      status: 'building',
-      lastDeploy: '2026-04-22T16:08:00Z',
-      branch: 'main'
-    },
-    {
-      id: '4',
-      name: 'landing-v2',
-      url: 'https://landing-v2.vercel.app',
-      status: 'error',
-      lastDeploy: '2026-04-21T14:30:00Z',
-      branch: 'develop'
-    }
-  ];
-
-  const stats = {
-    total: demoDeploys.length,
-    ready: demoDeploys.filter(d => d.status === 'ready').length,
-    building: demoDeploys.filter(d => d.status === 'building').length,
-    error: demoDeploys.filter(d => d.status === 'error').length
-  };
-
-  res.status(200).json({
-    success: true,
-    deploys: demoDeploys,
-    stats: stats
-  });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  
+  try {
+    const response = await fetch(`${GITHUB_RAW}/deploys.json`);
+    const data = await response.json();
+    
+    const projects = data.projects || [];
+    const deploys = projects.map((p, i) => ({
+      id: String(i + 1),
+      name: p.name || `project-${i}`,
+      url: p.url || 'https://example.vercel.app',
+      status: p.state === 'READY' ? 'ready' : p.state === 'BUILDING' ? 'building' : 'error',
+      lastDeploy: p.created || new Date().toISOString(),
+      branch: p.branch || 'main'
+    }));
+    
+    res.status(200).json({
+      success: true,
+      deploys: deploys,
+      stats: {
+        total: deploys.length,
+        ready: deploys.filter(d => d.status === 'ready').length,
+        building: deploys.filter(d => d.status === 'building').length,
+        error: deploys.filter(d => d.status === 'error').length
+      }
+    });
+  } catch (err) {
+    res.status(200).json({ success: false, error: err.message, deploys: [] });
+  }
 }

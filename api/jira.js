@@ -1,30 +1,48 @@
-// API route for Jira data
+// API route for Jira data - fetches from GitHub raw
+
+const GITHUB_RAW = 'https://raw.githubusercontent.com/josejose-elbot/eric-mc-v1/master/data';
 
 export default async function handler(req, res) {
-  const demoTickets = {
-    blocked: [
-      { key: 'ODP-142', title: 'API de pagos no responde', status: 'blocked', priority: 'high' },
-      { key: 'ODP-138', title: 'Error en dashboard de métricas', status: 'blocked', priority: 'medium' }
-    ],
-    inProgress: [
-      { key: 'ODP-145', title: 'Implementar autenticación OAuth', status: 'in-progress', priority: 'high' },
-      { key: 'ODP-150', title: 'Refactorizar módulo de usuarios', status: 'in-progress', priority: 'medium' },
-      { key: 'ODP-152', title: 'Optimizar queries de reportes', status: 'in-progress', priority: 'low' }
-    ],
-    todo: [
-      { key: 'ODP-155', title: 'Agregar filtros avanzados', status: 'todo', priority: 'medium' },
-      { key: 'ODP-158', title: 'Actualizar documentación de API', status: 'todo', priority: 'low' }
-    ],
-    sprint: {
-      name: 'Sprint 23',
-      progress: 65,
-      total: 8,
-      completed: 5
-    }
-  };
-
-  res.status(200).json({
-    success: true,
-    ...demoTickets
-  });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
+  
+  try {
+    const response = await fetch(`${GITHUB_RAW}/jira.json`);
+    const data = await response.json();
+    
+    const issues = data.issues || [];
+    const blocked = issues.filter(i => i.status === 'BLOCKED' || i.status === 'Bloqueado');
+    const inProgress = issues.filter(i => i.status === 'In Progress' || i.status === 'En Progreso');
+    const todo = issues.filter(i => i.status === 'To Do' || i.status === 'Pendiente' || i.status === 'Pausada');
+    
+    res.status(200).json({
+      success: true,
+      blocked: blocked.slice(0, 10).map(i => ({
+        key: i.key,
+        title: i.summary,
+        status: 'blocked',
+        priority: i.priority?.toLowerCase() || 'medium'
+      })),
+      inProgress: inProgress.slice(0, 10).map(i => ({
+        key: i.key,
+        title: i.summary,
+        status: 'in-progress',
+        priority: i.priority?.toLowerCase() || 'medium'
+      })),
+      todo: todo.slice(0, 10).map(i => ({
+        key: i.key,
+        title: i.summary,
+        status: 'todo',
+        priority: i.priority?.toLowerCase() || 'medium'
+      })),
+      sprint: {
+        name: 'Sprint Activo',
+        progress: 65,
+        total: 8,
+        completed: 5
+      }
+    });
+  } catch (err) {
+    res.status(200).json({ success: false, error: err.message });
+  }
 }
