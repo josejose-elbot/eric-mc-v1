@@ -106,13 +106,15 @@ export default async function handler(req, res) {
       // Extract sender name from From header
       let fromName = 'Unknown';
       if (fromHeader) {
-        // Extract name from "Name <email@domain.com>" or just "email@domain.com"
-        const match = fromHeader.match(/^([^<\n]+)</?([^>\n]+)>?/);
-        if (match) {
-          fromName = match[1].trim();
-          if (!fromName) fromName = match[2].split('@')[0];
-        } else {
+        // Extract name from "Name <email@domain.com>"
+        const emailMatch = fromHeader.match(/<([^>]+)>/);
+        if (emailMatch) {
+          fromName = fromHeader.replace(emailMatch[0], '').trim();
+          if (!fromName) fromName = emailMatch[1].split('@')[0];
+        } else if (fromHeader.includes('@')) {
           fromName = fromHeader.split('@')[0];
+        } else {
+          fromName = fromHeader;
         }
       }
       
