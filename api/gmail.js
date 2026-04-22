@@ -20,10 +20,8 @@ function parseEmailFromSnippet(snippet) {
     // Extract just the project/key and title, remove time at end
     if (rest.includes('/')) {
       const projParts = rest.split('/');
-      project = projParts[0].trim();
-      titlePart = projParts.slice(1).join('/').trim();
-      // Remove time like "10:34 AM"
-      titlePart = titlePart.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim();
+      const project = projParts[0].trim();
+      const titlePart = projParts.slice(1).join('/').trim().replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim();
       subject = `${project}: ${titlePart}`.substring(0, 50);
     } else {
       subject = rest.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
