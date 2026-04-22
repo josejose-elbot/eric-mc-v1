@@ -72,16 +72,9 @@ export default async function handler(req, res) {
         fromName: parsed.fromName,
         subject: parsed.subject,
         time: 'recién',
-        unread: i < 5,
-        label: parsed.label,
-        originalIndex: i
+        unread: true, // Most recent emails - assume unread
+        label: parsed.label
       };
-    }).sort((a, b) => {
-      // Unread first
-      if (a.unread && !b.unread) return -1;
-      if (!a.unread && b.unread) return 1;
-      // Then by original order (most recent first)
-      return a.originalIndex - b.originalIndex;
     });
     
     res.status(200).json({
