@@ -13,16 +13,23 @@ export default async function handler(req, res) {
     const events = data.events || [];
     const now = new Date();
     
-    const meetings = events.map((e, i) => ({
-      id: String(i + 1),
-      title: e.summary || 'Reunión',
-      time: e.start?.time || '09:00',
-      endTime: e.end?.time || '10:00',
-      participants: e.attendees?.map(a => a.email.split('@')[0]) || [],
-      meetLink: e.conferenceData?.entryPoints?.[0]?.uri || null,
-      isNext: i === 0,
-      countdown: i === 0 ? 'ahora' : null
-    }));
+    // Parse events to meetings format
+    const meetings = events.slice(0, 10).map((e, i) => {
+      let time = '00:00';
+      if (e.start && e.start.includes('T')) {
+        time = e.start.split('T')[1]?.substring(0, 5) || '00:00';
+      }
+      return {
+        id: e.id || String(i + 1),
+        title: e.title || 'Sin título',
+        time: time,
+        endTime: e.end ? (e.end.includes('T') ? e.end.split('T')[1]?.substring(0, 5) : '00:00') : '00:00',
+        participants: e.attendees || [],
+        meetLink: e.meet_link || null,
+        isNext: i === 0,
+        countdown: i === 0 ? 'ahora' : null
+      };
+    });
     
     // Generate week days
     const weekDays = [];
