@@ -11,13 +11,24 @@ export default async function handler(req, res) {
     const data = await response.json();
     
     const events = data.events || [];
+    
+    // Filter out "Home" and all-day events - these are not real meetings
+    const filteredEvents = events.filter(e => {
+      const title = (e.title || '').toLowerCase();
+      return title !== 'home' && title !== 'sin título' && !title.includes('transporte') && !title.includes('comida');
+    });
+    
     const now = new Date();
     
     // Parse events to meetings format
-    const meetings = events.slice(0, 10).map((e, i) => {
+    const meetings = filteredEvents.slice(0, 10).map((e, i) => {
       let time = '00:00';
       if (e.start && e.start.includes('T')) {
-        time = e.start.split('T')[1]?.substring(0, 5) || '00:00';
+        // Extract time from ISO format: 2026-04-22T09:00:00-06:00
+        time = e.start.split('T')[1]?.substring(0, 5) || '09:00';
+      } else if (e.start) {
+        // Check if it's just a date like "2026-04-22"
+        time = 'all-day';
       }
       return {
         id: e.id || String(i + 1),
