@@ -55,16 +55,32 @@ function parseEmailFromSnippet(snippet) {
     subject = subject.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
     label = 'interno';
   }
-  // Default
+  // Default - extract from snippet
   else {
-    fromName = 'Unknown';
-    subject = clean.replace(/\d{1,2}:\d{2}\s*(AM|PM)/i, '').trim().substring(0, 50);
+    // Use first meaningful words as subject
+    const words = clean.split(' ').slice(0, 8).join(' ');
+    subject = words.replace(/&amp;/g, '&').replace(/&#39;/g, "'").substring(0, 60);
+    
+    // Try to detect sender from common patterns
+    if (clean.startsWith('Hi ') || clean.startsWith('Hello ') || clean.startsWith('Hey ')) {
+      fromName = clean.split(/[,\s]/).slice(1, 2).join('').replace(/[^a-zA-Z]/g, '') || 'Unknown';
+      fromName = fromName.charAt(0).toUpperCase() + fromName.slice(1).toLowerCase();
+    } else if (clean.includes('@')) {
+      const emailMatch = clean.match(/@([a-zA-Z0-9.-]+)/);
+      fromName = emailMatch ? emailMatch[1].split('.')[0].charAt(0).toUpperCase() + emailMatch[1].split('.')[0].slice(1) : 'Unknown';
+    } else {
+      fromName = 'General';
+    }
+    
+    // Classify
     if (clean.toLowerCase().includes('rfp') || clean.toLowerCase().includes('propuesta') || clean.toLowerCase().includes('cotiz')) {
       label = 'cliente';
-    } else if (clean.toLowerCase().includes('jira') || clean.toLowerCase().includes('update')) {
-      label = 'interno';
-    } else {
+    } else if (clean.toLowerCase().includes('entrevista') || clean.toLowerCase().includes('job') || clean.toLowerCase().includes('hiring')) {
+      label = 'rrhh';
+    } else if (clean.toLowerCase().includes('dora') || clean.toLowerCase().includes('atlassian') || clean.toLowerCase().includes('webinar')) {
       label = 'ruido';
+    } else {
+      label = 'trabajo';
     }
   }
   
